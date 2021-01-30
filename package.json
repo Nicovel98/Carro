@@ -53,7 +53,7 @@
   },
   "scripts": {
     "build": "webpack",
-    "start": "npm run build && webpack-dev-server --port=8000"
+    "start": "npm run build && webpack-dev-server --port=8007"
   },
   "version": "1.0.9"
 }

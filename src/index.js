@@ -2,8 +2,8 @@ import 'phaser';
 
 var config = {
     type: Phaser.WEBGL,
-    width: 800,
-    height: 600,
+    width: 400,
+    height: 255,
     parent: 'phaser-example',
     pixelArt: true,
     backgroundColor: '#000000',
@@ -11,13 +11,15 @@ var config = {
         preload: preload,
         create: create,
         update: update
-    }
+    },
+    zoom:2
 };
 
 var light;
 var offsets = [];
 var player;
 var layer;
+var layer2;
 var cursors;
 
 var game = new Phaser.Game(config);
@@ -27,7 +29,7 @@ function preload() {
     this.load.image('car', 'assets/sprites/car90.png');
     this.load.tilemapCSV('map', 'assets/tilemaps/csv/grid.csv');
     this.load.audio('boden', 'assets/audio/atmosfera.mp3');    
-    // this.load.image('enemy', "assets/sprites/enemy.png");
+    this.load.image('enemy', "assets/sprites/enemy.png");
 }
 
 function create() {
@@ -38,7 +40,7 @@ function create() {
 
     layer = map.createLayer(0, tileset, 0, 0).setPipeline('Light2D');
 
-    player = this.add.image(32 + 16, 32 + 16, 'car');
+    //player = this.add.image(32 + 16, 32 + 16, 'car');
    
     this.anims.create({
         key: 'turn',
@@ -66,10 +68,18 @@ function create() {
     this.lights.addLight(0, 400, 100).setColor(0xffff00).setIntensity(3.0);
 
     offsets = [0.1, 0.3, 0.5, 0.7];
-    audio.play();
+    //audio.play();
+    
+    const level = [[8]];
+    const map2 = this.make.tilemap({ data: level, tileWidth: 30, tileHeight: 50 });
+    const tiles = map2.addTilesetImage("enemy");
+   
+    layer2 = map2.createStaticLayer(0, tiles, 0, 0);
+    //player = this.add.image(32 , 32 , tiles)
 }
 
 function update() {
+    /*
     if (this.input.keyboard.checkDown(cursors.left, 100)) {
         var tile = layer.getTileAtWorldXY(player.x - 32, player.y, true);
 
@@ -120,4 +130,5 @@ function update() {
             index += 1;
         }
     });
+    */
 }
